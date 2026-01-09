@@ -5,6 +5,7 @@ import (
 
 	"github.com/LuisanaMTDev/spaced_learning/server/controllers"
 	"github.com/joho/godotenv"
+
 	// "github.com/justinas/alice"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
@@ -21,21 +22,10 @@ func main() {
 	//End points
 	handler.Handle("GET /app/", http.StripPrefix("/app/", http.FileServer(http.Dir("./frontend/assets/"))))
 
-	handler.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
-		client := r.Header.Get("SL-Client-Type")
+	handler.HandleFunc("GET /", serverConfig.Root)
 
-		if strings.Contains(client, "SL-CLI") {
-			w.Header().Set("Content-Type", "text/plain")
-			w.WriteHeader(http.StatusForbidden)
-			w.Write([]byte("This endpoint isn't intended to work with the CLI."))
-		}
-
-		err := views.Index().Render(r.Context(), w)
-		if err != nil {
-			log.Fatal().AnErr("error", err).Msg("ERROR: while sending main page")
-			w.WriteHeader(http.StatusInternalServerError)
-		}
-	})
+	handler.HandleFunc("GET /oauth2/callback", serverConfig.OAuthCallback)
+	handler.HandleFunc("POST /login", serverConfig.Login)
 
 	handler.HandleFunc("POST /lesson/add", serverConfig.AddLesson)
 

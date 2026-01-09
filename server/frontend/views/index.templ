@@ -1,9 +1,27 @@
 package views
 
-templ Index() {
+templ Index(withAccessToken bool, scope, clientID string, userID int64) {
 	@Layout() {
-		<main class="flex flex-col">
-			<h1 class="self-center font-bold">안녕하세요.</h1>
+		<main class="flex flex-col gap-4">
+			if !withAccessToken {
+				<h1 class="self-center font-bold">안녕하세요.</h1>
+				<form
+					hx-post="/login"
+					hx-swap="outerHTML"
+					class="self-center bg-white flex flex-col"
+				>
+					<label for="password-input">Escribe la contraseña maestra.</label>
+					<input
+						type="password"
+						name="password"
+						id="password-input"
+						class="border"
+					/>
+					<button type="submit">Enviar</button>
+				</form>
+			} else {
+				<h1>Your GitHub user id is: { userID }</h1>
+			}
 		</main>
 	}
 }

@@ -1,0 +1,8 @@
+package views
+
+import "fmt"
+import "os"
+
+templ AuthButton() {
+	<a href={ templ.URL(fmt.Sprintf("https://github.com/login/oauth/authorize?scope=%s&client_id=%s", "user", os.Getenv("CLIENT_ID"))) }>Sign Up with GitHub</a>
+}
