@@ -1,0 +1,11 @@
+-- +goose Up
+CREATE TABLE IF NOT EXISTS users (
+id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
+user_id INTEGER,
+access_token TEXT UNIQUE,
+api_key TEXT UNIQUE,
+showed INTEGER NOT NULL
+) ;
+-- +goose Down
+DELETE FROM users ;
+DROP TABLE users ;

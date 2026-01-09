@@ -4,6 +4,10 @@
 
 package gosql_queries
 
+import (
+	"database/sql"
+)
+
 type Lesson struct {
 	ID               int64
 	Topic            string
@@ -12,4 +16,12 @@ type Lesson struct {
 	AmountOfCards    int64
 	CreatedAt        string
 	UpdatedAt        string
+}
+
+type User struct {
+	ID          int64
+	UserID      sql.NullInt64
+	AccessToken sql.NullString
+	ApiKey      sql.NullString
+	Showed      int64
 }
