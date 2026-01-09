@@ -37,15 +37,14 @@ impl SLHttpClient {
             .send()
             .await;
 
-        let response_body_result: Result<String, reqwest::Error>;
-        match response {
+        let response_body_result = match response {
             Err(error) => return Err(error),
-            Ok(resolved_response) => response_body_result = resolved_response.text().await,
-        }
+            Ok(resolved_response) => resolved_response.text().await,
+        };
 
         match response_body_result {
-            Err(error) => return Err(error),
-            Ok(response_body) => return Ok(response_body),
+            Err(error) => Err(error),
+            Ok(response_body) => Ok(response_body),
         }
     }
 }
