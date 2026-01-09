@@ -1,12 +1,13 @@
 module github.com/LuisanaMTDev/spaced_learning/server
 
-go 1.25.1
+go 1.25.4
 
 require (
 	github.com/a-h/templ v0.3.960
 	github.com/joho/godotenv v1.5.1
-	github.com/justinas/alice v1.2.0
 	github.com/rs/zerolog v1.34.0
+	golang.org/x/crypto v0.41.0
+	golang.org/x/oauth2 v0.34.0
 	modernc.org/sqlite v1.40.1
 )
 
