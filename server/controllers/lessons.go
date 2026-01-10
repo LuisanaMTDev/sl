@@ -60,15 +60,14 @@ func (sc *ServerConfig) AddLesson(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Request has success."))
 	case "SL-WEB-APP":
 		err := r.ParseForm()
-
+		// TODO: Implement.
 		if err != nil {
 			log.Error().AnErr("error", err).Msg("While parsing request form.")
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
 	default:
-		w.Header().Set("Content-Type", "text/plain")
 		w.WriteHeader(http.StatusForbidden)
-		w.Write([]byte("Invalid SL-Client-Type header"))
+		return
 	}
 }
