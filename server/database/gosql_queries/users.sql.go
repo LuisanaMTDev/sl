@@ -27,17 +27,6 @@ func (q *Queries) AddUser(ctx context.Context, arg AddUserParams) error {
 	return err
 }
 
-const addUserID = `-- name: AddUserID :exec
-UPDATE users
-SET user_id = ?
-WHERE id = 1
-`
-
-func (q *Queries) AddUserID(ctx context.Context, userID sql.NullInt64) error {
-	_, err := q.db.ExecContext(ctx, addUserID, userID)
-	return err
-}
-
 const getAPIKEY = `-- name: GetAPIKEY :one
 SELECT api_key FROM users
 WHERE
@@ -78,8 +67,6 @@ func (q *Queries) UpdateAPIKEY(ctx context.Context, apiKey sql.NullString) error
 }
 
 const updateToken = `-- name: UpdateToken :exec
-;
-
 UPDATE users
 SET access_token = ?
 WHERE id = 1

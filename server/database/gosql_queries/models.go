@@ -20,7 +20,6 @@ type Lesson struct {
 
 type User struct {
 	ID          int64
-	UserID      sql.NullInt64
 	AccessToken sql.NullString
 	ApiKey      sql.NullString
 	Showed      int64

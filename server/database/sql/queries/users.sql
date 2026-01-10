@@ -14,11 +14,6 @@ WHERE
     id = 1
     AND showed = 0;
 
--- name: AddUserID :exec
-UPDATE users
-SET user_id = ?
-WHERE id = 1 ;
-
 -- name: UpdateToken :exec
 UPDATE users
 SET access_token = ?

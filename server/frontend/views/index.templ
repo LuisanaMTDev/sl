@@ -1,6 +1,6 @@
 package views
 
-templ Index(withAccessToken bool, scope, clientID string, userID int64) {
+templ Index(withAccessToken bool, scope, clientID string) {
 	@Layout() {
 		<main class="flex flex-col gap-4">
 			if !withAccessToken {
@@ -20,7 +20,7 @@ templ Index(withAccessToken bool, scope, clientID string, userID int64) {
 					<button type="submit">Enviar</button>
 				</form>
 			} else {
-				<h1>Your GitHub user id is: { userID }</h1>
+				<h1>You are login.</h1>
 			}
 		</main>
 	}
