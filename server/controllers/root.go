@@ -15,12 +15,11 @@ func (sc *ServerConfig) Root(w http.ResponseWriter, r *http.Request) {
 	case "SL-WEB-APP":
 		_, err := sc.DBQueries.GetAccessToken(r.Context())
 		if err != nil && err.Error() == "sql: no rows in result set" {
-			err = views.Index(
+			if err := views.Index(
 				false,
 				sc.OAuthConfig.Scopes[0],
 				sc.OAuthConfig.ClientID,
-			).Render(r.Context(), w)
-			if err != nil {
+			).Render(r.Context(), w); err != nil {
 				log.Fatal().AnErr("error", err).Msg("ERROR: while sending main page")
 				w.WriteHeader(http.StatusInternalServerError)
 				return
@@ -34,12 +33,11 @@ func (sc *ServerConfig) Root(w http.ResponseWriter, r *http.Request) {
 
 		log.Debug().Msg("SUCCESS: db has access token")
 
-		err = views.Index(
+		if err := views.Index(
 			true,
 			"",
 			"",
-		).Render(r.Context(), w)
-		if err != nil {
+		).Render(r.Context(), w); err != nil {
 			log.Fatal().AnErr("error", err).Msg("ERROR: while sending main page")
 			w.WriteHeader(http.StatusInternalServerError)
 			return
