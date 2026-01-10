@@ -29,9 +29,7 @@ func (q *Queries) AddUser(ctx context.Context, arg AddUserParams) error {
 
 const getAPIKEY = `-- name: GetAPIKEY :one
 SELECT api_key FROM users
-WHERE
-    id = 1
-    AND showed = 0
+WHERE id = 1
 `
 
 func (q *Queries) GetAPIKEY(ctx context.Context) (sql.NullString, error) {
@@ -57,7 +55,7 @@ const updateAPIKEY = `-- name: UpdateAPIKEY :exec
 ;
 
 UPDATE users
-SET api_key = ?
+SET api_key = ?, showed = 1
 WHERE id = 1
 `
 

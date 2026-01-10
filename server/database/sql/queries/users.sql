@@ -10,9 +10,7 @@ WHERE id = 1;
 
 -- name: GetAPIKEY :one
 SELECT api_key FROM users
-WHERE
-    id = 1
-    AND showed = 0;
+WHERE id = 1;
 
 -- name: UpdateToken :exec
 UPDATE users
@@ -21,5 +19,5 @@ WHERE id = 1 ;
 
 -- name: UpdateAPIKEY :exec
 UPDATE users
-SET api_key = ?
+SET api_key = ?, showed = 1
 WHERE id = 1 ;
