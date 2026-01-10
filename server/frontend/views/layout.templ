@@ -13,7 +13,7 @@ templ Layout() {
 			<script type="module" src="/app/js/htmx-config.js"></script>
 			<title>Spaced Learning</title>
 		</head>
-		<body>
+		<body hx-headers='{"SL-Client-Type": "SL-WEB-APP"}'>
 			{ children... }
 		</body>
 	</html>
