@@ -24,7 +24,6 @@ func (sc *ServerConfig) OAuthCallback(w http.ResponseWriter, r *http.Request) {
 
 	log.Debug().Time("expiry", token.Expiry).Int64("expires_in", token.ExpiresIn).Msg("completed oauth exchange")
 
-	// Store the access token and refresh token in in-memory session storage.
 	err = sc.DBQueries.AddUser(r.Context(), gosql_queries.AddUserParams{
 		AccessToken: sql.NullString{Valid: true, String: token.AccessToken},
 		Showed:      0,
