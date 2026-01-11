@@ -8,4 +8,6 @@ pub enum SLError {
     RequestToServerFailed(reqwest::Error),
     #[error("ERROR while readding env var: {0}")]
     ReadEnvVarFailed(std::env::VarError),
+    #[error("ERROR while promting password: {0}")]
+    PromptPasswordFaild(std::io::Error),
 }

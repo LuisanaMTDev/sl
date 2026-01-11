@@ -16,19 +16,14 @@ async fn main() -> Result<(), SLError> {
         return Err(SLError::LoadEnvsFaild(error));
     }
 
-    let sl_http_client_result = SLHttpClient::new();
-    let sl_http_client;
-    match sl_http_client_result {
-        Err(error) => return Err(error),
-        Ok(client) => sl_http_client = client,
-    };
+    let sl_http_client = SLHttpClient::new()?;
     let args = Args::parse();
 
-    if args.save {
+    if args.save && args.topic.is_some() && args.amount_of_cards.is_some() {
         let response = sl_http_client
             .post_lesson(
-                args.topic.clone(),
-                args.amount_of_cards,
+                args.topic.clone().unwrap(),
+                args.amount_of_cards.unwrap(),
                 args.calculate_repetitions_dates(),
             )
             .await;
@@ -37,40 +32,52 @@ async fn main() -> Result<(), SLError> {
             Ok(response_data) => println!("{}", response_data.green().bold()),
             Err(error) => return Err(SLError::RequestToServerFailed(error)),
         };
+        if let Some((Width(w), _)) = terminal_size() {
+            println!(
+                "{:^width$}",
+                format!("Today is {}", Local::now().date_naive().bold()),
+                width = w as usize
+            );
+            println!(
+                "{:^width$}",
+                format!(
+                    "Topic \"{}\" has {} amount of cards, and your desired repetitions are {}",
+                    args.topic.clone().unwrap(),
+                    args.amount_of_cards.unwrap(),
+                    args.repetitions_desired
+                )
+                .bold()
+                .yellow(),
+                width = w as usize
+            );
+            args.print_repetitions_dates();
+        } else {
+            println!(
+                "{}",
+                format!("Today is {}", Local::now().date_naive().bold()),
+            );
+            println!(
+                "{}",
+                format!(
+                    "Topic \"{}\" has {} amount of cards, and your desired repetitions are {}",
+                    args.topic.clone().unwrap(),
+                    args.amount_of_cards.unwrap(),
+                    args.repetitions_desired
+                )
+                .bold()
+                .yellow(),
+            );
+            args.print_repetitions_dates();
+        }
     }
 
-    if let Some((Width(w), _)) = terminal_size() {
-        println!(
-            "{:^width$}",
-            format!("Today is {}", Local::now().date_naive().bold()),
-            width = w as usize
-        );
-        println!(
-            "{:^width$}",
-            format!(
-                "Topic \"{}\" has {} amount of cards, and your desired repetitions are {}",
-                args.topic, args.amount_of_cards, args.repetitions_desired
-            )
-            .bold()
-            .yellow(),
-            width = w as usize
-        );
-        args.print_repetitions_dates();
-    } else {
-        println!(
-            "{}",
-            format!("Today is {}", Local::now().date_naive().bold()),
-        );
-        println!(
-            "{}",
-            format!(
-                "Topic \"{}\" has {} amount of cards, and your desired repetitions are {}",
-                args.topic, args.amount_of_cards, args.repetitions_desired
-            )
-            .bold()
-            .yellow(),
-        );
-        args.print_repetitions_dates();
+    if args.login {
+        println!("Start login...");
+        let password = match rpassword::prompt_password("Enter password: ") {
+            Ok(pw) => pw,
+            Err(error) => return Err(SLError::PromptPasswordFaild(error)),
+        };
+        println!("{}", password);
     }
 
     Ok(())

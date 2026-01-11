@@ -7,13 +7,16 @@ use terminal_size::{Width, terminal_size};
 #[derive(Debug, Parser)]
 #[command(version, about, long_about = None)]
 pub struct Args {
-    pub topic: String,
-    pub amount_of_cards: i16,
+    pub topic: Option<String>,
+    pub amount_of_cards: Option<i16>,
     #[arg(long = "rd", default_value = "7")]
     pub repetitions_desired: i8,
     #[arg(short = 'a')]
     /// Save topic in database using API.
     pub save: bool,
+    #[arg(long = "login")]
+    /// Generate API Key
+    pub login: bool,
 }
 
 impl Args {
@@ -36,7 +39,7 @@ impl Args {
         repetitions_dates
     }
 
-    pub fn print_repetitions_dates(self) {
+    pub fn print_repetitions_dates(&self) {
         let repetitions_dates = self.calculate_repetitions_dates();
 
         for (r, repetition_date) in repetitions_dates.iter().enumerate() {
