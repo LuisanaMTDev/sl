@@ -17,6 +17,11 @@ func (sc *ServerConfig) LoggingMiddleware(next http.Handler) http.Handler {
 
 func (sc *ServerConfig) HasAPIKeyMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Header.Get("SL-Client-Type") != "SL-CLI" {
+			next.ServeHTTP(w, r)
+			return
+		}
+
 		apiKey := r.Header.Get("Authorization")
 		log.Debug().Any("sended_api_key", apiKey).Msg("API Key sended by the user")
 		if apiKey == "" {
@@ -36,6 +41,7 @@ func (sc *ServerConfig) HasAPIKeyMiddleware(next http.Handler) http.Handler {
 			sameAPIKey := checkHashedApiKey(hashedAPIKey.String, apiKey)
 			if sameAPIKey {
 				next.ServeHTTP(w, r)
+				return
 			} else {
 				w.WriteHeader(http.StatusUnauthorized)
 				w.Header().Add("WWW-Authenticate", "Basic realm=Send API Key generated with sl login command.")
