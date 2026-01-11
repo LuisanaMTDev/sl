@@ -20,7 +20,13 @@ templ Index(withAccessToken bool, scope, clientID string) {
 					<button type="submit">Enviar</button>
 				</form>
 			} else {
-				<h1>You are login.</h1>
+				<h1 class="self-center font-bold text-xl">SL</h1>
+				<button
+					hx-get="/lesson/add"
+					hx-swap="afterend"
+					hx-trigger="click[!document.getElementById('add-lesson-form')]"
+					class="bg-blue-400 w-fit rounded-xs self-center px-4 py-2"
+				>Añadir lección</button>
 			}
 		</main>
 	}

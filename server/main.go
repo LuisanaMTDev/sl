@@ -27,6 +27,7 @@ func main() {
 	handler.HandleFunc("GET /oauth2/callback", serverConfig.OAuthCallback)
 	handler.HandleFunc("POST /login", serverConfig.Login)
 
+	handler.HandleFunc("GET /lesson/add", serverConfig.SendAddLessonForm)
 	handler.With(serverConfig.HasAPIKeyMiddleware).HandleFunc("POST /lesson/add", serverConfig.AddLesson)
 
 	server := http.Server{Handler: handler, Addr: ":8090"}

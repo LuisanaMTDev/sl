@@ -51,7 +51,7 @@ func Index(withAccessToken bool, scope, clientID string) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			} else {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<h1>You are login.</h1>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<h1 class=\"self-center font-bold text-xl\">SL</h1><button hx-get=\"/lesson/add\" hx-swap=\"afterend\" hx-trigger=\"click[!document.getElementById('add-lesson-form')]\" class=\"bg-blue-400 w-fit rounded-xs self-center px-4 py-2\">Añadir lección</button>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

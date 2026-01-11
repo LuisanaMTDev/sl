@@ -1,0 +1,18 @@
+package views
+
+// TODO: With JavaScript, get the date and send it with hx-vals
+templ AddLessonForm() {
+	<form id="add-lesson-form" class="flex flex-col self-center items-center w-sm bg-gray-50 rounded-sm">
+		<label for="topic-input">Tema de la lección</label>
+		<input type="text" name="topic" id="topic-input" class="border rounded-sm"/>
+		<label for="aoc-input">Cantidad de cartas (Podrás agregar más después)</label>
+		<input type="number" name="amount_of_cards" id="aoc-input" class="border rounded-sm"/>
+		<label for="repetitions-input" class="text-center">Repeticiones deseadas (No se prodrá cambiar en el futuro)</label>
+		<input type="number" name="repetitions" id="repetitions-input" class="border rounded-sm"/>
+		<button
+			hx-post="/lesson/add"
+			type="submit"
+			class="bg-blue-400 w-fit rounded-xs self-center px-2 my-1.5"
+		>Enviar</button>
+	</form>
+}
