@@ -1,5 +1,3 @@
-import htmx from "htmx.org";
-
 htmx.config.selfRequestsOnly = false;
 htmx.config.responseHandling = [
   { code: "204", swap: false },

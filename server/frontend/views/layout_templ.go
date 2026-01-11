@@ -29,7 +29,7 @@ func Layout() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!doctype html><html lang=\"es\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"icon\" type=\"image/png\" href=\"/app/images/favicon-black.png\"><link rel=\"icon\" type=\"image/png\" href=\"/app/images/favicon-white.png\" media=\"(prefers-color-scheme: dark)\"><link rel=\"stylesheet\" href=\"/app/css/styles.css\"><script defer src=\"/app/js/htmx.min.js\"></script><script type=\"module\" src=\"/app/js/htmx-config.js\"></script><title>Spaced Learning</title></head><body hx-headers='{\"SL-Client-Type\": \"SL-WEB-APP\"}'>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!doctype html><html lang=\"es\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"icon\" type=\"image/png\" href=\"/app/images/favicon-black.png\"><link rel=\"icon\" type=\"image/png\" href=\"/app/images/favicon-white.png\" media=\"(prefers-color-scheme: dark)\"><link rel=\"stylesheet\" href=\"/app/css/styles.css\"><script src=\"/app/js/htmx.min.js\"></script><script src=\"/app/js/htmx-config.js\" defer></script><title>Spaced Learning</title></head><body hx-headers='{\"SL-Client-Type\": \"SL-WEB-APP\"}'>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
