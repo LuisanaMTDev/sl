@@ -21,6 +21,7 @@ func (sc *ServerConfig) HasAPIKeyMiddleware(next http.Handler) http.Handler {
 		log.Debug().Any("sended_api_key", apiKey).Msg("API Key sended by the user")
 		if apiKey == "" {
 			w.WriteHeader(http.StatusUnauthorized)
+			w.Header().Add("WWW-Authenticate", "Basic realm=Send API Key generated with sl login command.")
 			return
 		}
 
