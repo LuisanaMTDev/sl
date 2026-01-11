@@ -21,7 +21,7 @@ async fn main() -> Result<(), SLError> {
 
     if args.save && args.topic.is_some() && args.amount_of_cards.is_some() {
         let response = sl_http_client
-            .post_lesson(
+            .add_lesson(
                 args.topic.clone().unwrap(),
                 args.amount_of_cards.unwrap(),
                 args.calculate_repetitions_dates(),

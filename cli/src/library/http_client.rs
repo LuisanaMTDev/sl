@@ -22,7 +22,7 @@ impl SLHttpClient {
         }
     }
 
-    pub async fn post_lesson(
+    pub async fn add_lesson(
         &self,
         topic: String,
         amount_of_cards: i16,
