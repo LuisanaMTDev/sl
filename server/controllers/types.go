@@ -6,7 +6,6 @@ type AddLessonRequest struct {
 	RepetitionsDates []string `json:"repetitions_dates"`
 }
 
-type UserInfoResponse struct {
-	ID    int64  `json:"id"`
-	Login string `json:"login"`
+type UserLoginInfoRequest struct {
+	Password string `json:"password"`
 }

@@ -43,6 +43,19 @@ func (sc *ServerConfig) Login(w http.ResponseWriter, r *http.Request) {
 
 	switch client {
 	case "SL-CLI":
+		userLoginInfo := UserLoginInfoRequest{}
+		if err := json.NewDecoder(r.Body).Decode(&userLoginInfo); err != nil {
+			log.Fatal().AnErr("error", err).Msg("ERROR: while decoding request body")
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		if userLoginInfo.Password != os.Getenv("LOGIN_PASSWORD") {
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Header().Add("WWW-Authenticate", "Basic realm=Send correct password.")
+			return
+		}
+
 		_, err := sc.DBQueries.GetAccessToken(r.Context())
 		if err != nil && err.Error() == "sql: no rows in result set" {
 			if err := json.NewEncoder(w).Encode(struct {
